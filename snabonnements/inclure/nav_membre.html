@@ -1,0 +1,27 @@
+[(#SET{ico_mode,#CONFIG{sn_icones_cle}|strlen|>{0}})]
+[(#CONFIG{accepter_inscriptions}|=={oui}|oui|et{#CONFIG{accepter_visiteurs}|=={oui}|oui}|et{#CONFIG{sn_abo_menu_membre_activer}|=={on}|oui})
+<nav class="sn-nav sn-nav-actions sn-nav-membre" id="sn-nav-membre" role="navigation">
+	<ul>
+
+	[(#SESSION{id_auteur}|non)
+		<li><a href="[(#URL_PAGE{login}|parametre_url{url,#URL_PAGE{compte}})]" title="<:lien_connecter:>" rel="nofollow" class="login_modal sn-btn sn-btn-a[ (#GET{ico_mode}|oui)sn-btn-ico]">
+			[(#GET{ico_mode}|?{<span class="fa-solid fa-user-lock"></span>,<:lien_connecter:>})]
+		</a></li>
+	]
+	[(#AUTORISER{ecrire})
+		<li><a href="#CONST{_DIR_RESTREINT_ABS}" title="<:espace_prive:>" rel="nofollow" class="sn-btn sn-btn-a[ (#GET{ico_mode}|oui)sn-btn-ico]">
+			[(#GET{ico_mode}|?{<span class="fa-solid fa-user-gear"></span>,<:espace_prive:>})]
+		</a></li>
+	]
+	[(#SESSION{id_auteur}|oui|et{#CONFIG{sn_abo_page_compte_activer}|=={on}|oui})
+		<li><a href="[(#URL_PAGE{compte})]" title="<:snabo:page_compte_titre:>" rel="nofollow" class="sn-btn sn-btn-a[ (#GET{ico_mode}|oui)sn-btn-ico]">
+				[(#GET{ico_mode}|?{<span class="fa-solid fa-user"></span>,<:snabo:page_compte_titre:>})]
+		</a></li>
+	]
+	[(#SESSION{id_auteur}|oui)
+		<li><a href="[(#URL_LOGOUT{#URL_PAGE{sommaire}|parametre_url{sn_notif,deconnexion}})]" title="<:icone_deconnecter:>" rel="nofollow" class="sn-btn sn-btn-a[ (#GET{ico_mode}|oui)sn-btn-ico]">
+				[(#GET{ico_mode}|?{<span class="fa-solid fa-unlock-keyhole"></span>,<:icone_deconnecter:>})]
+		</a></li>
+	]
+	</ul>
+</nav>]

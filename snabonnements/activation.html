@@ -1,0 +1,50 @@
+[(#CONFIG{accepter_inscriptions}|=={oui}|oui|sinon_interdire_acces)]
+[(#CONFIG{accepter_visiteurs}|=={oui}|oui|sinon_interdire_acces)]
+[(#ENV{m}|=={a}|oui|sinon_interdire_acces)]
+[(#ENV{m}|=={a}|oui)
+	#SET{page_titre_ref,snabo:page_activation_titre_activation}
+]
+[(#ENV{m}|=={c}|oui)
+	#SET{page_titre_ref,snabo:page_activation_titre_confirmation}
+]
+<BOUCLE_principale(AUTEURS){tout}{email}{par id_auteur}{0,1}>
+<!DOCTYPE html>
+<html dir="#LANG_DIR" lang="#LANG" class="[(#LANG_DIR)][ sn-mode-couleur-(#ENV{sn_mode_couleur})][ sn-mode-typo-(#ENV{sn_mode_typo})] sn-page-grille[ (#LANG)] no-js">
+<head>
+	<script type='text/javascript'>/*<![CDATA[*/(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement);/*]]>*/</script>
+	<title><:{=#GET{page_titre_ref}}:> - [(#NOM_SITE_SPIP|textebrut)]</title>
+	<meta name="description" content="<:snabo:page_activation_descriptif:>" />
+	<INCLURE{fond=inclure/head,robots=none} />
+</head>
+<body class="pas_surlignable page_activation">
+<div class="page">
+	<INCLURE{fond=inclure/header,env} />
+	<INCLURE{fond=inclure/sn_header_menus,env} />
+	<main class="main [ (#GET{sncolonnes_classe})]" role="main">
+		<div class="sn-section sn-section-contenu wrapper">
+			<div class="sn-brique content" id="content">
+				<p class="arbo"><a href="#URL_SITE_SPIP/"><:accueil_site:></a> &gt; <strong class="on"><:{=#GET{page_titre_ref}}:></strong></p>
+				<div class="cartouche">
+					<h1><:{=#GET{page_titre_ref}}:></h1>
+				</div>
+				<div class="texte">
+					[(#SESSION{statut}|=={6forum}|ou{0minirezo}|ou{1comite}|oui)
+						<:page_inscription_info_deja_inscrit:>
+					]
+					[(#SESSION{statut}|=={6forum}|ou{0minirezo}|ou{1comite}|non)
+					[(#ENV{m}|=={a}|oui)
+						<div class="sn-bloc sn-style-cool sn-aere-bloc-1b"><p class="sn-al-c sn-m0"><:snabo:page_activation_texte_merci{site=#NOM_SITE_SPIP}:>&nbsp;&nbsp;<span class="fa-solid fa-heart sn-txt-cl-site"></span></p></div>
+						<p><strong><:snabo:page_activation_texte_activation:></strong></p>
+						<p><:snabo:page_activation_texte_compte:></p>
+						<p class="sn-al-c"><a href="[(#URL_PAGE{login}|parametre_url{url,#URL_PAGE{compte}})]" class="sn-btn sn-btn-a"><:lien_connecter:></a></p>
+					]
+					]
+      	   </div><!--.texte-->
+			</div><!--.content-->
+		</div><!--.wrapper-->
+	</main><!--.main-->
+	<INCLURE{fond=inclure/footer,self=#SELF} />
+</div><!--.page-->
+</body>
+</html>
+</BOUCLE_principale>

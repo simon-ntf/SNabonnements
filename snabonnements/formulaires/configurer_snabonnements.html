@@ -1,0 +1,29 @@
+<div><fieldset></fieldset></div>
+<div class='formulaire_spip formulaire_configurer'>
+    [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+    [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+    <form method='post' action='#ENV{action}' id='formulaire_configurer_snreset'>
+    	<div>[(#ACTION_FORMULAIRE{#ENV{action}})]<div>
+    	<fieldset><div><h3><:snabo:config_section_titre:></h3>
+			<div class="[ (#ENV{snid_lib}|oui|et{#ENV{snid_conformite}}|oui|?{sn-prive-avertissement-cool,sn-prive-avertissement})]">
+				<h4><:snabo:config_section_snid:></h4>
+				[(#ENV{snid_lib}|oui)[
+				<p>(#ENV{snid_conformite}|oui|?{<:snabo:config_snid_operante:>,<:snabo:config_snid_bdd:>})</p>
+				]]
+				[(#ENV{snid_lib}|non)
+				<p><:snabo:config_snid_inoperante:></p>
+				<p><:snabo:config_snid_inoperante_sodium:></p>
+				]
+			</div>
+        	[(#SAISIE{'oui_non', sn_abo_page_compte_activer, label=<:snabo:config_sn_abo_page_compte_activer:>, explication=<:snabo:config_sn_abo_page_compte_activer_explication:>, defaut=#ENV**{sn_abo_page_compte_activer}})]
+        	[(#SAISIE{'oui_non', sn_abo_abonnement_activer, label=<:snabo:config_sn_abo_abonnement_activer:>, explication=<:snabo:config_sn_abo_abonnement_activer_explication:>, defaut=#ENV**{sn_abo_abonnement_activer}})]
+        	[(#SAISIE{'oui_non', sn_abo_menu_membre_activer, label=<:snabo:config_sn_abo_menu_membre_activer:>, explication=<:snabo:config_sn_abo_menu_membre_activer_explication:>, defaut=#ENV**{sn_abo_menu_membre_activer}})]
+        	[(#SAISIE{'oui_non', sn_abo_fiches_auteurs_activer, label=<:snabo:config_sn_abo_fiches_auteurs_activer:>, explication=<:snabo:config_sn_abo_fiches_auteurs_activer_explication:>, defaut=#ENV**{sn_abo_fiches_auteurs_activer}})]
+        	[(#SAISIE{'oui_non', sn_abo_fiches_visiteurs_autoriser, label=<:snabo:config_sn_abo_fiches_visiteurs_autoriser:>, explication=<:snabo:config_sn_abo_fiches_visiteurs_autoriser_explication:>, defaut=#ENV**{sn_abo_fiches_visiteurs_autoriser}})]
+      </div></fieldset>
+    </div></div>
+    <!--extra-->
+    <p class="boutons"><input type='submit' class='btn submit' value='<:bouton_enregistrer:>' /></p>
+	</div></form>
+</div>
+<!-- SN Abonnements - formulaires/configurer_snabonnements -->

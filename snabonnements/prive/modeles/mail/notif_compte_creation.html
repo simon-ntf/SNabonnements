@@ -1,0 +1,15 @@
+[(#HTTP_HEADER{Content-type: text/plain[; charset=(#CHARSET)]})]
+[\[(#NOM_SITE_SPIP|concat{'\] : ',<:snabo:email_compte_creation_titre{site=#NOM_SITE_SPIP}:>}|nettoyer_titre_email)]
+
+<:form_forum_message_auto:>
+
+[<p><strong>(#ENV{objet}|=={confirmation}|oui)<:snabo:email_compte_creation_confirmation_chapo:></strong></p>]
+
+<p><:snabo:email_compte_creation_message_ok:></p>
+<p><:snabo:email_compte_creation_message_erreur:></p>
+[(<p>#ENV{lien}|sinon{Une erreur s'est produite lors de la génération du lien de confirmation. Veuillez réessayer.})</p>]
+
+<p><:snabo:email_politesse:></p>
+<p><:snabo:email_signature{site=#NOM_SITE_SPIP}:></p>
+
+#FILTRE{supprimer_tags|filtrer_entites|trim}

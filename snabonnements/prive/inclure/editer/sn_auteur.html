@@ -1,0 +1,31 @@
+[(#SET{cle_genres,genre})][(#SET{liste_genres,#GET{cle_genres}|sn_const_options_trads{A,snabo}})]
+[(#SET{cle_civilites,civilite})][(#SET{liste_civilites,#GET{cle_civilites}|sn_const_options_trads{A,snabo}})]
+#SET{champ_publier_fiche,non}
+[(#CONFIG{sn_abo_page_compte_activer}|=={on}|oui)
+	[(#ENV**{statut}|=={0minirezo}|oui)
+		[(#SET{champ_publier_fiche,#SAISIE{'oui_non', sn_publier_fiche, label=<:snabo:edit_auteur_publier_fiche:>, explication=<:snabo:edit_auteur_publier_fiche_explication_admin:>, defaut=#ENV**{sn_publier_fiche}|sinon{''}, disable=oui}})]
+	][(#ENV**{statut}|=={6forum}|oui)
+		[(#CONFIG{sn_abo_fiches_visiteurs_autoriser}|=={on}|oui)
+			[(#SET{champ_publier_fiche,#SAISIE{'oui_non', sn_publier_fiche, label=<:snabo:edit_auteur_publier_fiche:>, explication=<:snabo:edit_auteur_publier_fiche_explication_visiteur{site=#NOM_SITE_SPIP}:>, defaut=#ENV**{sn_publier_fiche}|sinon{''}}})]
+		]
+	][(#ENV**{statut}|=={1comite}|oui)
+		[(#SET{champ_publier_fiche,#SAISIE{'oui_non', sn_publier_fiche, label=<:snabo:edit_auteur_publier_fiche:>, explication=<:snabo:edit_auteur_publier_fiche_explication_auteur{site=#NOM_SITE_SPIP}:>, defaut=#ENV**{sn_publier_fiche}|sinon{''}}})]
+	]
+]
+<fieldset>
+<h4><:snabo:edit_auteur_section:></h4><:snabo:{=#GET{champ_publier_expl}}:>
+[(#SAISIE{selection, sn_civilite, label=<:snabo:edit_auteur_civilite:>, defaut=#ENV**{sn_civilite}, data=#GET{liste_civilites}, cacher_option_intro=oui})]
+[(#SAISIE{input, sn_prenom, label=<:snabo:edit_auteur_prenom:>, defaut=#ENV**{sn_prenom}, maxlength=64})]
+[(#SAISIE{input, sn_nom, label=<:snabo:edit_auteur_nom:>, defaut=#ENV**{sn_nom}, maxlength=64})]
+[(#SAISIE{input, sn_fonctions, label=<:snabo:edit_auteur_fonctions:>, defaut=#ENV**{sn_fonctions}, maxlength=244})]
+[(#SAISIE{input, sn_societe, label=<:snabo:edit_auteur_societe:>, defaut=#ENV**{sn_societe}, maxlength=128})]
+[(#SAISIE{date, sn_date_naissance, label=<:snabo:edit_auteur_date_naissance:>, normaliser=oui, defaut=[(#ENV**{sn_date_naissance}|vider_date)]})]
+[(#SAISIE{input, sn_ville, label=<:snabo:edit_auteur_ville:>, defaut=#ENV**{sn_ville}, maxlength=64})]
+[(#SAISIE{input, sn_pays, label=<:snabo:edit_auteur_pays:>, defaut=#ENV**{sn_pays}, maxlength=32})]
+[(#SAISIE{selection, sn_genre, label=<:snabo:edit_auteur_genre:>, defaut=#ENV**{sn_genre}, data=#GET{liste_genres}, cacher_option_intro=oui})]
+[(#SAISIE{[(#HTML5|?{telephone,input})], sn_tel, label=<:snabo:edit_auteur_tel:>, defaut=#ENV**{sn_tel}, maxlength=16})]
+[(#GET{champ_publier_fiche}|=={non}|non)
+	[(#GET{champ_publier_fiche})]
+]
+</fieldset>
+<!-- SN Abonnements - prive/inclure/editer/sn_article -->

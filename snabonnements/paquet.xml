@@ -1,0 +1,36 @@
+<paquet
+	prefix="snabonnements"
+	categorie="communication"
+	version="1.0.0"
+	etat="test"
+	compatibilite="[3.0.0;["
+	logo="prive/themes/spip/images/snabonnements-128.png"
+	schema="1.0.0"
+	documentation="https://www.snsuite.net"
+>
+	<nom>SN Abonnements</nom>
+	<licence lien="http://www.gnu.org/licenses/gpl-3.0.html">GPL 3</licence>
+	<auteur lien="https://git.spip.net/Simon">Simon N</auteur>
+	
+	<necessite nom="saisies" compatibilite="[3.43.2;]" />
+	<necessite nom="facteur" compatibilite="[4.3.4;]" />
+	<necessite nom="sncore" compatibilite="[0;[" />
+	<necessite nom="snimages" compatibilite="[0;[" />
+	<necessite nom="snedition" compatibilite="[0;[" />
+
+	<pipeline nom="affiche_gauche" inclure="snabonnements_pipelines.php" />
+	<pipeline nom="affiche_milieu" inclure="snabonnements_pipelines.php" />
+	<pipeline nom="configurer_liste_metas" inclure="snabonnements_pipelines.php" />
+	<pipeline nom="preparer_fichier_session" inclure="snabonnements_pipelines.php" />
+	<pipeline nom="editer_contenu_objet" inclure="snabonnements_pipelines.php" />
+	<pipeline nom="formulaire_charger" inclure="snabonnements_pipelines.php" />
+	<pipeline nom="formulaire_verifier" inclure="snabonnements_pipelines.php" />
+	<pipeline nom="formulaire_traiter" inclure="snabonnements_pipelines.php" />
+	<pipeline nom="pre_edition" inclure="snabonnements_pipelines.php" />
+	<pipeline nom="pre_insertion" inclure="snabonnements_pipelines.php" />
+	<pipeline nom="declarer_tables_interfaces" inclure="base/snabonnements.php" />
+	<pipeline nom="declarer_tables_objets_sql" inclure="base/snabonnements.php" />
+
+	<menu nom="snabonnements" titre="snabo:menu_texte_snabonnements" parent="menu_edition" icone="images/icone-snabonnements-16.png"/>
+	
+</paquet>

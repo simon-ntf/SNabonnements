@@ -1,0 +1,24 @@
+[(#SESSION{id_auteur}|oui|sinon_interdire_acces)]
+[(#CONFIG{accepter_inscriptions}|sinon_interdire_acces)]
+[(#CONFIG{sn_abo_page_compte_activer}|=={on}|oui|sinon_interdire_acces)]
+[(#SESSION{statut}|=={6forum}|ou{0minirezo}|ou{1comite}|oui|sinon_interdire_acces)]
+[(#SESSION{statut}|=={6forum}|oui)[(#CONFIG{accepter_visiteurs}|sinon_interdire_acces)]]
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_snabonnement,nouveau}'>
+    [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+    [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+    [(#ENV{editable})
+    <form method='post' action='#ENV{action}'>
+	    <div>[(#ACTION_FORMULAIRE{#ENV{action}})]<div>
+	    	<input type='hidden' name='id_snabonnement' value='#ENV{id_snabonnement}' />
+		    <fieldset><div>
+		    [(#SAISIE{input, titre, label=<:snabo:abo_titre:>, maxlength="256", obligatoire=oui})]
+		    [(#SAISIE{input, resume, label=<:snabo:abo_resume:>, maxlength="256"})]
+		    [(#SAISIE{selection, statut, label=<:snabo:abo_statut:>, data=#ENV{liste_abo_statuts}, cacher_option_intro=oui})]
+		    </div></fieldset>
+	    </div></div>
+	    <!--extra-->
+	    <p class="boutons"><input type='submit' class='submit' value='<:bouton_enregistrer:>' /></p>
+    </form>
+    ]
+</div>
+<!-- SN Abonnements - formulaires/editer_snabonnement -->

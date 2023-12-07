@@ -1,0 +1,32 @@
+[(#SESSION{id_auteur}|oui|sinon_interdire_acces)]
+[(#CONFIG{accepter_inscriptions}|sinon_interdire_acces)]
+[(#CONFIG{sn_abo_page_compte_activer}|=={on}|oui|sinon_interdire_acces)]
+[(#SESSION{statut}|=={6forum}|ou{0minirezo}|ou{1comite}|oui|sinon_interdire_acces)]
+[(#SESSION{statut}|=={6forum}|oui)[(#CONFIG{accepter_visiteurs}|sinon_interdire_acces)]]
+[(#CONFIG{sn_abo_abonnement_activer}|sinon_interdire_acces)]
+[(#SET{valeur_defaut,''})]
+<div class="formulaire_spip formulaire_snabonnements ajax" id="formulaire_snabonnements">
+[<p class="reponse_formulaire reponse_formulaire_ok" role="status">(#ENV*{message_ok})</p>]
+[<p class="reponse_formulaire reponse_formulaire_erreur" role="alert">(#ENV*{message_erreur})</p>]
+[(#ENV{editable})
+<BOUCLE_auteurs(AUTEURS){id_auteur}>
+[(#SET{abo_array,#SNABONNEMENTS|sn_explose})]<br/>
+</BOUCLE_auteurs>
+<form method="post" action="#ENV{action}">
+	#ACTION_FORMULAIRE
+	<fieldset>
+		<div class="editer-groupe">
+			<BOUCLE_snmenu(SNABONNEMENTS){statut=publie}>
+				[(#GET{abo_array}|is_array|oui)
+					#SET{valeur_defaut,''}
+					[(#ID_SNABONNEMENT|array_search{#GET{abo_array}}|is_int|?{ #SET{valeur_defaut,on}, #SET{valeur_defaut,''} })]
+				]
+				[(#SAISIE{'case', snabonnement#ID_SNABONNEMENT, label_case=[<strong>(#TITRE)</strong>[ - (#RESUME)]], defaut=#GET{valeur_defaut}})]
+		    </BOUCLE_snmenu>
+		</div>
+	</fieldset>
+	<p class="boutons"><input type="submit" class="btn submit sn-btn sn-btn-a" value="<:bouton_valider:>" /></p>
+ </form>
+]
+</div>
+<!-- SN Abonnements - formulaires/selectionner_snabos -->

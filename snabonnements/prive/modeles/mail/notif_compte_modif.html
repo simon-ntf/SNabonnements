@@ -1,0 +1,22 @@
+[(#HTTP_HEADER{Content-type: text/plain[; charset=(#CHARSET)]})]
+[\[(#NOM_SITE_SPIP|concat{'\] : ',<:snabo:email_compte_modif_titre:>}|nettoyer_titre_email)]
+
+<:form_forum_message_auto:>
+<:form_forum_bonjour{nom=#ENV{nom}}:>
+
+[<p><strong>(#ENV{objet}|=={email}|oui)<:snabo:email_compte_modif_email_chapo:></strong></p>]
+[<p><strong>(#ENV{objet}|=={email2}|oui)<:snabo:email_compte_modif_email2_chapo:></strong></p>]
+[<p><strong>(#ENV{objet}|=={email2_ajout}|oui)<:snabo:email_compte_modif_email2_ajout_chapo:></strong></p>]
+[<p><strong>(#ENV{objet}|=={login}|oui)<:snabo:email_compte_modif_login_chapo:></strong></p>]
+[<p><strong>(#ENV{objet}|=={desinscrire}|oui)<:snabo:email_compte_modif_desinscrire_chapo:></strong></p>]
+
+[<p><strong>(#ENV{objet}|=={email}|ou{email2}|ou{email2_ajout}|oui)<:snabo:email_compte_modif_email_pre{adresse=#ENV{nouvelle_adresse}}:></strong></p>]
+[<p><:snabo:email_compte_modif_date:> : (#ENV{date_modif})</p>]
+<p><:snabo:email_compte_modif_message_a:></p>
+<p><:snabo:email_compte_modif_message_b:></p>
+<p><:snabo:email_compte_modif_lien_signalement{url_signaler=#URL_PAGE{contact}}:></p>
+
+<p><:snabo:email_politesse:></p>
+<p><:snabo:email_signature{site=#NOM_SITE_SPIP}:></p>
+
+#FILTRE{supprimer_tags|filtrer_entites|trim}

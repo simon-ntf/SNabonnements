@@ -1,0 +1,40 @@
+[(#SESSION{id_auteur}|oui|sinon_interdire_acces)]
+[(#CONFIG{accepter_inscriptions}|sinon_interdire_acces)]
+[(#CONFIG{sn_abo_page_compte_activer}|=={on}|oui|sinon_interdire_acces)]
+[(#SESSION{statut}|=={6forum}|ou{0minirezo}|ou{1comite}|oui|sinon_interdire_acces)]
+[(#SESSION{statut}|=={6forum}|oui)[(#CONFIG{accepter_visiteurs}|sinon_interdire_acces)]]
+<div class="formulaire_spip formulaire_editer_auteur_dp ajax" id="formulaire_editer_auteur_dp">
+[<p class="reponse_formulaire reponse_formulaire_ok" role="status">(#ENV*{message_ok})</p>]
+[<p class="reponse_formulaire reponse_formulaire_erreur" role="alert">(#ENV*{message_erreur})</p>]
+[(#ENV{editable})
+<form method="post" action="#ENV{action}">
+	#ACTION_FORMULAIRE
+	[(#ENV{champ_rgpd_actif}|oui)
+		[(#SAISIE{'case', sn_rgpd, label=<:snabo:inscription_rgpd_titre:>, explication=<:snabo:edit_auteur_rgpd_explication_b:>, label_case=<:snabo:inscription_rgpd_label{site=#NOM_SITE_SPIP}:>, obligatoire=oui})]
+	]
+	<fieldset class="sn-grl sn-grl9 sn-fgrl3">
+	[(#SAISIE{selection, sn_civilite, label=<:snabo:edit_auteur_civilite:>, defaut=#ENV**{sn_civilite}, data=#ENV{liste_civilites}})]
+	[(#SAISIE{input, sn_prenom, label=<:snabo:edit_auteur_prenom:>, defaut=#ENV**{sn_prenom}, maxlength=64})]
+	[(#SAISIE{input, sn_nom, label=<:snabo:edit_auteur_nom:>, defaut=#ENV**{sn_nom}, maxlength=64})]
+	[(#SAISIE{date, sn_date_naissance, label=<:snabo:edit_auteur_date_naissance:>, defaut=[(#ENV**{sn_date_naissance}|affdate{'d-m-Y'}|vider_date)], normaliser=oui})]
+	[(#SAISIE{selection, sn_genre, label=<:snabo:edit_auteur_genre:>, defaut=#ENV**{sn_genre}, data=#ENV{liste_genres}, cacher_option_intro=oui})]
+	[(#SAISIE{[(#HTML5|?{telephone,input})], sn_tel, label=<:snabo:edit_auteur_tel:>, defaut=#ENV**{sn_tel}, maxlength=16})]
+	</fieldset><fieldset class="sn-grl sn-grl20 sn-fgrl2">
+	[(#SAISIE{input, sn_fonctions, label=<:snabo:edit_auteur_fonctions:>, defaut=#ENV**{sn_fonctions}, maxlength=244})]
+	[(#SAISIE{input, sn_societe, label=<:snabo:edit_auteur_societe:>, defaut=#ENV**{sn_societe}, maxlength=128})]
+	</fieldset><fieldset class="sn-grl sn-grl20 sn-fgrl2">
+	[(#SAISIE{input, sn_ville, label=<:snabo:edit_auteur_ville:>, defaut=#ENV**{sn_ville}, maxlength=64})]
+	[(#SAISIE{input, sn_pays, label=<:snabo:edit_auteur_pays:>, defaut=#ENV**{sn_pays}, maxlength=32})]
+	</fieldset><fieldset>
+	[(#SAISIE{textarea, bio, label=<:snabo:edit_auteur_bio:>, defaut=[(#ENV**{bio}|textebrut)], longueur_max=8000, rows=8, explication=<:snabo:edit_auteur_bio_explication:>})]
+	</fieldset>
+	[(#GET{champ_publier_fiche}|=={non}|non)[(#GET{champ_publier_fiche})]]
+	[(#ENV{champ_publicite_profil_actif}|?{
+		#SAISIE{'oui_non', sn_publier_fiche, label=<:snabo:edit_auteur_publier_fiche:>, explication=#ENV{explication_fiche_publique}, defaut=#ENV**{sn_publier_fiche}|sinon{''}},
+		#SAISIE{'oui_non', sn_publier_fiche, label=<:snabo:edit_auteur_publier_fiche:>, explication=#ENV{explication_fiche_publique}, defaut=#ENV**{sn_publier_fiche}|sinon{''}, disable=oui}
+	})]
+<p class="boutons"><input type="submit" class="btn submit sn-btn sn-btn-a" value="<:bouton_valider:>" /></p>
+ </form>
+]
+</div>
+<!-- SN Abonnements - formulaires/editer_auteur_dp -->
