@@ -1,8 +1,8 @@
 <paquet
 	prefix="snabonnements"
 	categorie="communication"
-	version="1.0.0"
-	etat="test"
+	version="1.0.1"
+	etat="stable"
 	compatibilite="[3.0.0;["
 	logo="prive/themes/spip/images/snabonnements-128.png"
 	schema="1.0.0"
